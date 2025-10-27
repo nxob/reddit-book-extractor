@@ -312,6 +312,8 @@
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid #2a2a2b;
+            position: relative;   
+            z-index: 1;
         }
         #br-header h2 {
             margin: 0;
@@ -336,9 +338,9 @@
             background: #1a1a1b;
             overflow: visible;     
             position: relative;
-            z-index: 1;
+            z-index: 2;
             box-sizing: border-box;
-            margin-top: 4px;
+            margin-top: 0;
         }
         #br-scan-btn {
             display: block;
