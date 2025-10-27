@@ -335,6 +335,7 @@
             padding: 16px 20px;
             background: #1a1a1b;
             border-bottom: 1px solid #2a2a2b;
+            overflow: visible;
         }
         #br-scan-btn {
             width: 100%;
@@ -346,10 +347,12 @@
             font-size: 14px;
             font-weight: 600;
             cursor: pointer;
-            margin-bottom: 12px;
+            box-shadow: 0 0 10px rgba(220,38,38,0.5);
+            transition: all 0.2s ease;
         }
         #br-scan-btn:hover {
-            background: linear-gradient(135deg, #a00000 0%, #5a0000 100%);
+            transform: scale(1.03);
+            background: linear-gradient(135deg, #ef4444 0%, #991b1b 100%);
         }
         #br-scan-btn:disabled {
             opacity: 0.5;
