@@ -400,21 +400,26 @@
         </div>
     </div>
 
-    <div class="bookmarklet-section">
-        <div class="container">
-            <div class="bookmarklet-box">
-                <h2>📌 Drag This to Your Bookmarks Bar</h2>
-                <p>One-click setup. No downloads, no extensions!</p>
-                
-                <div style="margin: 40px 0;">
-                   <a href="javascript:(function(){
-                      var s=document.createElement('script');
-                      s.src='https://nxob.github.io/reddit-book-extractor/extractor.js?'+Date.now();
-                      document.body.appendChild(s);
-                    })();">
-                      Drag me to bookmarks bar → Reddit Book Extractor
-                    </a>
-                </div>
+    <div class="bookmarklet-box" style="text-align:center; margin-top:3rem;">
+      <h2 style="font-size:2rem; display:flex; justify-content:center; align-items:center; gap:0.6rem;">
+        <span style="font-size:2rem;">📖✨</span>
+        <span>Drag This to Your Bookmarks Bar</span>
+      </h2>
+      <p style="opacity:0.8; margin-top:-0.3rem;">One-click setup. No downloads, no extensions!</p>
+    
+      <a
+        href="javascript:(function(){
+          var s=document.createElement('script');
+          s.src='https://nxob.github.io/reddit-book-extractor/extractor.js?'+Date.now();
+          document.body.appendChild(s);
+        })();"
+        style="display:inline-block;margin-top:1.5rem;font-weight:600;color:#f43f5e;text-decoration:none;background:#1a1a1a;border:2px solid #f43f5e;padding:0.6rem 1rem;border-radius:12px;box-shadow:0 0 10px rgba(244,63,94,0.4);transition:0.2s;"
+        onmouseover="this.style.background='#f43f5e';this.style.color='#fff';"
+        onmouseout="this.style.background='#1a1a1a';this.style.color='#f43f5e';"
+      >
+        📕 Drag me → Reddit Book Extractor
+      </a>
+    </div>
 
                 <div class="instruction-box">
                     <strong>💡 Can't see your bookmarks bar?</strong>
