@@ -1,4 +1,4 @@
-✨ Features
+✨ **Features**
 
 📖 Smart Book Detection - Detects Reddit's {Book by Author} format plus multiple patterns
 🎯 Trope Recognition - Identifies enemies-to-lovers, age gap, mafia, dark romance, and more
@@ -8,13 +8,13 @@
 🚫 Bot Filtering - Automatically filters AutoModerator and bot accounts
 
 
-🚀 Quick Start
+🚀 **Quick Start**
 Installation (30 seconds)
 
 Drag the "📚 Extract Books" button to your bookmarks bar
-Done! No downloads, no extensions, no sign-ups
-
-Usage
+Done! **No downloads, no extensions, no sign-ups
+**
+**Usage**
 
 Go to any book subreddit (e.g., r/DarkRomance)
 Click the bookmarklet
@@ -26,8 +26,8 @@ Reddit JSON API - Public API, no auth needed
 Regex + NLP - Pattern matching and text analysis
 Client-side only - Privacy focused, no server
 
-Browser Compatibility
-
+**Browser Compatibility
+**
 ✅ Chrome/Edge (Chromium)
 ✅ Firefox
 ✅ Safari
