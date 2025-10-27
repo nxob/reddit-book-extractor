@@ -6,7 +6,7 @@ Installation (30 seconds)
 Drag the "📚 Extract Books" button to your bookmarks bar \
  **No downloads, no extensions, no sign-ups** 
 
-**Usage**
+**Usage** \
 Go to any book subreddit (e.g., r/DarkRomance) \
 Click the bookmarklet \
 Click "Extract All Book Recommendations" \
