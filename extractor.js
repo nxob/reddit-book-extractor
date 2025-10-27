@@ -308,7 +308,7 @@
         #br-header {
             background: linear-gradient(135deg, #8b0000 0%, #4a0000 100%);
             color: white;
-            padding: 16px 20px 14px;
+            padding: 16px 20px 12px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -333,9 +333,8 @@
             background: rgba(255,255,255,0.3);
         }
         #br-controls {
-            padding: 16px 20px;
+            padding: 24px 20px 16px;
             background: #1a1a1b;
-            border-bottom: 1px solid #2a2a2b;
             overflow: visible;
             margin-top: 0;         
             position: relative;
@@ -343,11 +342,12 @@
         }
         #br-scan-btn {
             width: 100%;
+            margin: 8px 0 12px;
             padding: 14px;
             background: linear-gradient(135deg, #8b0000 0%, #4a0000 100%);
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             font-size: 14px;
             font-weight: 600;
             cursor: pointer;
@@ -537,6 +537,7 @@
             <button id="br-close">✕</button>
         </div>
         <div id="br-controls">
+            <div style="height:6px"></div>
             <button id="br-scan-btn">Extract All Book Recommendations</button>
             <input type="text" id="br-search" placeholder="Search by title, author, or trope...">
             <div id="br-stats">
