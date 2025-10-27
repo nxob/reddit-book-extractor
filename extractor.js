@@ -308,7 +308,7 @@
         #br-header {
             background: linear-gradient(135deg, #8b0000 0%, #4a0000 100%);
             color: white;
-            padding: 16px 20px 12px;
+            padding: 14px 20px 12px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -333,16 +333,17 @@
             background: rgba(255,255,255,0.3);
         }
         #br-controls {
-            padding: 12px 20px 16px;
+            padding: 10px 20px 16px;
             background: #1a1a1b;
             overflow: visible;     
             position: relative;
-            z-index: 10;
+            z-index: 1;
+            box-sizing: border-box;
         }
         #br-scan-btn {
             display: block;
             width: 100%;
-            margin: -6px 0 12px;
+            margin: 0 0 12px;
             padding: 14px;
             background: linear-gradient(135deg, #8b0000 0%, #4a0000 100%);
             color: white;
@@ -385,7 +386,8 @@
         #br-content {
             flex: 1;
             overflow-y: auto;
-            padding: 20px;
+            padding: 12px 20px 20px;
+            box-sizing: border-box;
         }
         .br-post {
             background: #1a1a1b;
