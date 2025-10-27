@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reddit Book Recommendation Extractor - Find Books Instantly</title>
+    <meta name="description" content="Extract book recommendations from Reddit instantly. Perfect for r/DarkRomance, r/RomanceBooks, and more!">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #1a1a1b;
+            background: #0f0f10;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #8b0000 0%, #4a0000 100%);
+            padding: 80px 20px;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '📚';
+            position: absolute;
+            top: 20px;
+            left: -50px;
+            font-size: 200px;
+            opacity: 0.1;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(5deg); }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            font-weight: 800;
+            text-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+            opacity: 0.95;
+        }
+
+        .stats-row {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .bookmarklet-section {
+            background: #1a1a1b;
+            padding: 60px 20px;
+        }
+
+        .bookmarklet-box {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            background: #2a2a2b;
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            border: 2px solid #8b0000;
+        }
+
+        .bookmarklet-box h2 {
+            color: #e8e6e3;
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .bookmarklet-box p {
+            color: #a8a6a3;
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+        }
+
+        .bookmarklet-link {
+            display: inline-block;
+            padding: 20px 50px;
+            background: linear-gradient(135deg, #8b0000 0%, #4a0000 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(139, 0, 0, 0.4);
+        }
+
+        .bookmarklet-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(139, 0, 0, 0.6);
+        }
+
+        .instruction-box {
+            background: #3a2a1a;
+            border-left: 4px solid #ff6b35;
+            padding: 20px;
+            margin: 30px auto;
+            max-width: 700px;
+            border-radius: 8px;
+            text-align: left;
+        }
+
+        .instruction-box strong {
+            color: #ff6b35;
+            font-size: 1.1rem;
+        }
+
+        .instruction-box p {
+            color: #d4d1cc;
+            margin: 10px 0 0 0;
+        }
+
+        .main-content {
+            background: #1a1a1b;
+            padding: 80px 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 60px;
+            color: #e8e6e3;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: #2a2a2b;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: #8b0000;
+            box-shadow: 0 20px 40px rgba(139, 0, 0, 0.3);
+        }
+
+        .feature-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #e8e6e3;
+        }
+
+        .feature-card p {
+            color: #a8a6a3;
+            line-height: 1.8;
+        }
+
+        .demo-section {
+            background: #0f0f10;
+            padding: 80px 20px;
+        }
+
+        .demo-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 60px auto 0;
+        }
+
+        .demo-step {
+            text-align: center;
+            padding: 30px;
+            background: #1a1a1b;
+            border-radius: 15px;
+            border: 2px solid #2a2a2b;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #8b0000 0%, #4a0000 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 800;
+            margin: 0 auto 20px;
+            color: white;
+        }
+
+        .demo-step h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: #e8e6e3;
+        }
+
+        .demo-step p {
+            color: #a8a6a3;
+            line-height: 1.8;
+        }
+
+        .subreddits-section {
+            background: #1a1a1b;
+            padding: 80px 20px;
+        }
+
+        .subreddit-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+            max-width: 900px;
+            margin: 40px auto;
+        }
+
+        .subreddit-tag {
+            background: #8b0000;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+        }
+
+        .subreddit-tag:hover {
+            background: #a00000;
+            transform: scale(1.05);
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, #8b0000 0%, #4a0000 100%);
+            padding: 80px 20px;
+            text-align: center;
+            color: white;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            opacity: 0.95;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: white;
+            color: #8b0000;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: #8b0000;
+        }
+
+        footer {
+            background: #0f0f10;
+            color: #a8a6a3;
+            padding: 40px 20px;
+            text-align: center;
+            border-top: 1px solid #2a2a2b;
+        }
+
+        footer a {
+            color: #ff6b6b;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .subtitle {
+                font-size: 1.2rem;
+            }
+
+            .features-grid,
+            .demo-steps {
+                grid-template-columns: 1fr;
+            }
+
+            .bookmarklet-box {
+                padding: 30px 20px;
+            }
+
+            .bookmarklet-link {
+                font-size: 1.1rem;
+                padding: 15px 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <div class="container">
+            <h1>📚 Reddit Book Rec Extractor</h1>
+            <p class="subtitle">Find book recommendations from r/DarkRomance, r/RomanceBooks & more - instantly!</p>
+            
+            <div class="stats-row">
+                <div class="stat">
+                    <div class="stat-number">⚡</div>
+                    <div class="stat-label">Instant Extraction</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">🎯</div>
+                    <div class="stat-label">Smart Detection</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">🆓</div>
+                    <div class="stat-label">100% Free</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bookmarklet-section">
+        <div class="container">
+            <div class="bookmarklet-box">
+                <h2>📌 Drag This to Your Bookmarks Bar</h2>
+                <p>One-click setup. No downloads, no extensions!</p>
+                
+                <div style="margin: 40px 0;">
+                    <a href="javascript:(function(){var s=document.createElement('script');s.src='https://yourusername.github.io/reddit-book-extractor/extractor.js?'+Date.now();document.body.appendChild(s);})();" class="bookmarklet-link">
+                        📚 Extract Books
+                    </a>
+                </div>
+
+                <div class="instruction-box">
+                    <strong>💡 Can't see your bookmarks bar?</strong>
+                    <p>Press <strong>Ctrl+Shift+B</strong> (Windows/Linux) or <strong>Cmd+Shift+B</strong> (Mac) to show it!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="main-content">
+        <div class="container">
+            <h2 class="section-title">What It Does</h2>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <span class="feature-icon">🔍</span>
+                    <h3>Smart Book Detection</h3>
+                    <p>Detects Reddit's {Book by Author} format plus multiple other patterns. Filters out false positives automatically.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">🎯</span>
+                    <h3>Trope Recognition</h3>
+                    <p>Identifies what people are looking for: enemies-to-lovers, age gap, mafia, dark romance, reverse harem, and more!</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">💬</span>
+                    <h3>Clickable Comments</h3>
+                    <p>Every book links directly to the original comment. See the full context and discussion!</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">📊</span>
+                    <h3>Upvote Sorting</h3>
+                    <p>Books sorted by confidence level and upvotes. Most recommended books appear first!</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">🔎</span>
+                    <h3>Live Search</h3>
+                    <p>Search across all posts, books, authors, and tropes instantly. Find exactly what you need!</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">🚫</span>
+                    <h3>Bot Filtering</h3>
+                    <p>Automatically filters out AutoModerator and bot comments. Only real recommendations!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="demo-section">
+        <div class="container">
+            <h2 class="section-title">How to Use</h2>
+            
+            <div class="demo-steps">
+                <div class="demo-step">
+                    <div class="step-number">1</div>
+                    <h3>Drag Bookmarklet</h3>
+                    <p>Drag the "📚 Extract Books" button above to your bookmarks bar. One-time setup!</p>
+                </div>
+
+                <div class="demo-step">
+                    <div class="step-number">2</div>
+                    <h3>Visit Subreddit</h3>
+                    <p>Go to r/DarkRomance, r/RomanceBooks, or any book subreddit you love.</p>
+                </div>
+
+                <div class="demo-step">
+                    <div class="step-number">3</div>
+                    <h3>Click Bookmarklet</h3>
+                    <p>Click the bookmark you just added. A panel slides in from the right!</p>
+                </div>
+
+                <div class="demo-step">
+                    <div class="step-number">4</div>
+                    <h3>Extract Books</h3>
+                    <p>Click "Extract All Book Recommendations" and watch it scan every post and comment!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="subreddits-section">
+        <div class="container">
+            <h2 class="section-title">Perfect For These Subreddits</h2>
+            
+            <div class="subreddit-tags">
+                <div class="subreddit-tag">r/DarkRomance</div>
+                <div class="subreddit-tag">r/RomanceBooks</div>
+                <div class="subreddit-tag">r/Fantasy</div>
+                <div class="subreddit-tag">r/BookSuggestions</div>
+                <div class="subreddit-tag">r/YAlit</div>
+                <div class="subreddit-tag">r/FanFiction</div>
+                <div class="subreddit-tag">r/horrorlit</div>
+                <div class="subreddit-tag">r/Fantasy_Bookclub</div>
+                <div class="subreddit-tag">r/suggestmeabook</div>
+                <div class="subreddit-tag">r/ProgressionFantasy</div>
+                <div class="subreddit-tag">r/litrpg</div>
+                <div class="subreddit-tag">r/52book</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to Find Your Next Favorite Book?</h2>
+            <p>Stop clicking through endless posts. Extract all recommendations instantly!</p>
+            
+            <div class="cta-buttons">
+                <a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'}); return false;" class="btn btn-primary">Get Bookmarklet</a>
+                <a href="https://github.com/yourusername/reddit-book-extractor" class="btn btn-secondary">View on GitHub</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>Made with ❤️ for book lovers</p>
+            <p style="margin-top: 20px;">
+                <a href="https://github.com/yourusername/reddit-book-extractor">GitHub</a> • 
+                <a href="https://github.com/yourusername/reddit-book-extractor/issues">Report Issues</a> • 
+                <a href="https://github.com/yourusername/reddit-book-extractor/blob/main/LICENSE">MIT License</a>
+            </p>
+            <p style="margin-top: 20px; opacity: 0.7; font-size: 0.9rem;">
+                Free • Open Source • Privacy Focused • No Data Collection
+            </p>
+        </div>
+    </footer>
+</body>
+</html>
