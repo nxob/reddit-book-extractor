@@ -568,49 +568,61 @@
     });
 
     function renderPosts(posts) {
-        const content = document.getElementById('br-content');
-        
-        if (posts.length === 0) {
-            content.innerHTML = '<div class="br-empty">No posts with recommendations found.<br><br>Try scrolling to load more posts first!</div>';
-            return;
-        }
-
-        content.innerHTML = posts.map(post => `
-            <div class="br-post">
-                <h3 class="br-post-title" onclick="window.open('${post.url}', '_blank')">
-                    ${post.title}
-                </h3>
-                
-                ${post.request && post.request.tropes.length > 0 ? `
-                    <div class="br-request">
-                        <div class="br-request-label">🎯 Looking for:</div>
-                        <div class="br-tropes">
-                            ${post.request.tropes.map(t => `<span class="br-trope">${t}</span>`).join('')}
-                        </div>
-                    </div>
-                ` : ''}
-                
-                ${post.recommendations.length > 0 ? `
-                    <div class="br-recommendations">
-                        <div class="br-rec-header">📖 Recommended Books (${post.recommendations.length})</div>
-                        ${post.recommendations.map(rec => `
-                            <div class="br-book br-confidence-${rec.confidence}" onclick="window.open('${rec.commentUrl}', '_blank')">
-                                <div class="br-book-title">${rec.title}</div>
-                                ${rec.author ? `<div class="br-book-author">by ${rec.author}</div>` : ''}
-                                <div class="br-book-context">"${rec.context}"</div>
-                                <div class="br-book-meta">
-                                    <span>👤 u/${rec.recommendedBy}</span>
-                                    <span>⬆️ ${rec.score}</span>
-                                    <span>${rec.confidence === 'high' ? '✓ High' : '~ Medium'}</span>
-                                    <a href="${rec.commentUrl}" class="br-view-comment" onclick="event.stopPropagation()">View Comment →</a>
-                                </div>
-                            </div>
-                        `).join('')}
-                    </div>
-                ` : '<div style="color: #a8a6a3; font-size: 13px; margin-top: 8px;">No book recommendations found.</div>'}
-            </div>
-        `).join('');
+    const content = document.getElementById('br-content');
+    
+    if (posts.length === 0) {
+        content.innerHTML = '<div class="br-empty">No posts with recommendations found.<br><br>Try scrolling to load more posts first!</div>';
+        return;
     }
+
+    content.innerHTML = posts.map(post => `
+        <div class="br-post">
+            <a class="br-post-title"
+               href="${post.url}"
+               target="_blank"
+               rel="noopener noreferrer">
+                ${post.title}
+            </a>
+            
+            ${post.request && post.request.tropes.length > 0 ? `
+                <div class="br-request">
+                    <div class="br-request-label">🎯 Looking for:</div>
+                    <div class="br-tropes">
+                        ${post.request.tropes.map(t => `<span class="br-trope">${t}</span>`).join('')}
+                    </div>
+                </div>
+            ` : ''}
+            
+            ${post.recommendations.length > 0 ? `
+                <div class="br-recommendations">
+                    <div class="br-rec-header">📖 Recommended Books (${post.recommendations.length})</div>
+                    ${post.recommendations.map(rec => `
+                        <div class="br-book br-confidence-${rec.confidence}" 
+                             onclick="window.open('${rec.commentUrl}', '_blank'); event.stopPropagation();">
+                            <div class="br-book-title">${rec.title}</div>
+                            ${rec.author ? `<div class="br-book-author">by ${rec.author}</div>` : ''}
+                            <div class="br-book-context">"${rec.context}"</div>
+                            <div class="br-book-meta">
+                                <span>👤 u/${rec.recommendedBy}</span>
+                                <span>⬆️ ${rec.score}</span>
+                                <span>${rec.confidence === 'high' ? '✓ High' : '~ Medium'}</span>
+                                <a href="${rec.commentUrl}" 
+                                   target="_blank" 
+                                   rel="noopener noreferrer" 
+                                   class="br-view-comment" 
+                                   onclick="event.stopPropagation();">
+                                   View Comment →
+                                </a>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            ` : '<div style="color: #a8a6a3; font-size: 13px; margin-top: 8px;">No book recommendations found.</div>'}
+        </div>
+    `).join('');
+}
+
+    
 
     function updateStats() {
         document.getElementById('br-post-count').textContent = allPosts.length;
