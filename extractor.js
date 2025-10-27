@@ -158,7 +158,6 @@
             'vampire': /vampire/gi,
             'fae': /\bfae\b|faerie|fey/gi,
             'reverse harem': /reverse\s+harem|rh\s+/gi,
-            'why choose': /why\s+choose/gi,
             'possessive': /possessive|obsessive/gi,
             'stalker': /stalker/gi,
             'revenge': /revenge/gi,
@@ -339,6 +338,7 @@
             position: relative;
             z-index: 1;
             box-sizing: border-box;
+            margin-top: 4px;
         }
         #br-scan-btn {
             display: block;
