@@ -1,8 +1,6 @@
 A simple tool for getting through Book Recs!
 
 🚀 **Quick Start** \
-Installation (30 seconds)
-
 Drag the "📚 Extract Books" button to your bookmarks bar \
  **No downloads, no extensions, no sign-ups** 
 
