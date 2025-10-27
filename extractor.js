@@ -338,9 +338,19 @@
             background: #1a1a1b;
             overflow: visible;     
             position: relative;
-            z-index: 2;
             box-sizing: border-box;
             margin-top: 0;
+        }
+        #br-controls::before {
+          content: "";
+          position: absolute;
+          top: -8px;                 /* buffer height; tweak 6–10px if you like */
+          left: 0;
+          right: 0;
+          height: 8px;
+          background: #1a1a1b;       /* same as controls background */
+          pointer-events: none;
+          z-index: 0;                /* just paints, doesn’t affect layout */
         }
         #br-scan-btn {
             display: block;
