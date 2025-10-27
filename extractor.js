@@ -356,7 +356,8 @@
             display: block;
             width: 100%;
             margin: 0 0 12px;
-            padding: 14px;
+            padding: 9px 14px 19px;
+            line-height: 1;
             background: linear-gradient(135deg, #8b0000 0%, #4a0000 100%);
             color: white;
             border: none;
