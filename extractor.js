@@ -308,10 +308,11 @@
         #br-header {
             background: linear-gradient(135deg, #8b0000 0%, #4a0000 100%);
             color: white;
-            padding: 20px;
+            padding: 16px 20px 14px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            border-bottom: 1px solid #2a2a2b;
         }
         #br-header h2 {
             margin: 0;
@@ -336,6 +337,9 @@
             background: #1a1a1b;
             border-bottom: 1px solid #2a2a2b;
             overflow: visible;
+            margin-top: 0;         
+            position: relative;
+            z-index: 10;
         }
         #br-scan-btn {
             width: 100%;
